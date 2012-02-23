@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="kotti_events"
+      metal:use-macro="api.macro('kotti:templates/view/master.pt')">
+
+  <head tal:omit-tag="" metal:fill-slot="head-more">
+<!-- <link rel="stylesheet" href="${request.static_url('kotti_events:static/style.css')}" type="text/css" /> -->
+    <more tal:omit-tag="" metal:define-slot="head"></more>
+  </head>
+
+  <article metal:fill-slot="content" class="event-view content">
+    <h1>${api.context.title}</h1>
+    <p class="description">
+      ${api.context.description}
+    </p>
+  </article>
+</html>
