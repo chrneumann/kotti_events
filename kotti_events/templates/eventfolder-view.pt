@@ -20,11 +20,11 @@
     <h2 tal:condition="upcoming_events" i18n:translate="">Upcoming events</h2>
     <ul tal:condition="upcoming_events">
       <li tal:repeat="event upcoming_events">
-        <span>${api.format_date(event.start_date)}</span>
-        <span>${api.format_time(event.start_time)}</span>
-	-
-        <span>${api.format_date(event.end_date)}</span>
-        <span>${api.format_time(event.end_time)}</span>
+        <span>${api.format_date(event.start_date)}</span><span tal:condition="event.start_time">,
+	  ${api.format_time(event.start_time)}</span>
+	<span tal:condition="event.end_time or event.end_date" tal:replace="'-'"/>
+        <span tal:condition="event.end_date">${api.format_date(event.end_date)}<span tal:condition="event.end_time" tal:replace="','"/></span>
+	<span tal:condition="event.end_time">${api.format_time(event.end_time)}</span>
 	<br/>
         <a href="${api.url(event)}" title="${event.description}">
           ${event.title}
@@ -35,11 +35,11 @@
     <h2 tal:condition="past_events" i18n:translate="">Past events</h2>
     <ul tal:condition="past_events">
       <li tal:repeat="event past_events">
-        <span>${api.format_date(event.start_date)}</span>
-        <span>${api.format_time(event.start_time)}</span>
-	-
-        <span>${api.format_date(event.end_date)}</span>
-        <span>${api.format_time(event.end_time)}</span>
+        <span>${api.format_date(event.start_date)}</span><span tal:condition="event.start_time">,
+	  ${api.format_time(event.start_time)}</span>
+	<span tal:condition="event.end_time or event.end_date" tal:replace="'-'"/>
+        <span tal:condition="event.end_date">${api.format_date(event.end_date)}<span tal:condition="event.end_time" tal:replace="','"/></span>
+	<span tal:condition="event.end_time">${api.format_time(event.end_time)}</span>
 	<br/>
         <a href="${api.url(event)}" title="${event.description}">
           ${event.title}
