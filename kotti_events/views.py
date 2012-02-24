@@ -57,10 +57,15 @@ def view_eventfolder(context, request):
     session = DBSession()
     now = datetime.datetime.now()
     query = session.query(Event).filter(Event.parent_id==context.id)
-    events = query.all()
+    now = datetime.datetime.now()
+    upcoming = query.filter(Event.start_date >= now).order_by(
+        Event.start_date, Event.start_time).all()
+    past = query.filter(Event.start_date < now).order_by(
+        desc(Event.start_date), desc(Event.start_time)).all()
     return {
         'api': template_api(context, request),
-        'events': events,
+        'upcoming_events': upcoming,
+        'past_events': past
         }
 
 def includeme_edit(config):

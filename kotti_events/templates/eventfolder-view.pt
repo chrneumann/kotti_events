@@ -16,5 +16,36 @@
     <p class="description">
       ${api.context.description}
     </p>
+
+    <h2 tal:condition="upcoming_events" i18n:translate="">Upcoming events</h2>
+    <ul tal:condition="upcoming_events">
+      <li tal:repeat="event upcoming_events">
+        <span>${api.format_date(event.start_date)}</span>
+        <span>${api.format_time(event.start_time)}</span>
+	-
+        <span>${api.format_date(event.end_date)}</span>
+        <span>${api.format_time(event.end_time)}</span>
+	<br/>
+        <a href="${api.url(event)}" title="${event.description}">
+          ${event.title}
+        </a>
+      </li>
+    </ul>
+
+    <h2 tal:condition="past_events" i18n:translate="">Past events</h2>
+    <ul tal:condition="past_events">
+      <li tal:repeat="event past_events">
+        <span>${api.format_date(event.start_date)}</span>
+        <span>${api.format_time(event.start_time)}</span>
+	-
+        <span>${api.format_date(event.end_date)}</span>
+        <span>${api.format_time(event.end_time)}</span>
+	<br/>
+        <a href="${api.url(event)}" title="${event.description}">
+          ${event.title}
+        </a>
+      </li>
+    </ul>
+
   </article>
 </html>
