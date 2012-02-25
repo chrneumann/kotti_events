@@ -13,18 +13,17 @@
 
   <article metal:fill-slot="content" class="event-view content">
     <h1>${api.context.title}</h1>
+    <p>
+      <span>${api.format_date(api.context.start_date)}</span><span tal:condition="api.context.start_time">,
+      ${api.format_time(api.context.start_time)}</span>
+      <span tal:condition="api.context.end_time or api.context.end_date" tal:replace="'-'"/>
+      <span tal:condition="api.context.end_date">${api.format_date(api.context.end_date)}<span tal:condition="api.context.end_time" tal:replace="','"/></span>
+      <span tal:condition="api.context.end_time">${api.format_time(api.context.end_time)}</span>
+      &mdash; ${api.context.place}
+    </p>
     <p class="description">
       ${api.context.description}
     </p>
-    <div class="row">
-      <div class="span4">
-${structure: api.context.body}
-      </div>
-      <div class="span4">
-foo
-
-
-      </div>
-    </div>
+    ${structure: api.context.body}
   </article>
 </html>
