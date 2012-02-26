@@ -14,6 +14,6 @@ Setup
 
 To enable the extension in your Kotti site, activate the configurator:
 
-  kotti.events = kotti_events.kotti_configure
+  kotti.configurators = kotti_events.kotti_configure
 
 .. _Find out more about Kotti: http://pypi.python.org/pypi/Kotti
