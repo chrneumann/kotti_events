@@ -9,12 +9,12 @@ from sqlalchemy import Integer
 from sqlalchemy.orm import mapper
 from kotti import metadata
 from kotti.resources import Content
-#from kotti.util import _
-_ = lambda x: x
+from kotti.util import _
 
 class EventFolder(Content):
     type_info = Content.type_info.copy(
         name=u'EventFolder',
+        title=_(u"Event folder"),
         add_view=u'add_eventfolder',
         addable_to=[u'Document'],
         )
@@ -28,11 +28,12 @@ eventfolders = Table(
 )
 
 mapper(EventFolder, eventfolders, inherits=Content,
-       polymorphic_identity='event_folders')
+       polymorphic_identity='event_folder')
 
 class Event(Content):
     type_info = Content.type_info.copy(
         name=u'Event',
+        title=_(u'Event'),
         add_view=u'add_event',
         addable_to=[u'EventFolder'],
         )
@@ -57,4 +58,4 @@ events = Table('events', metadata,
     Column('end_time', Time(), nullable=True),
 )
 
-mapper(Event, events, inherits=Content, polymorphic_identity='events')
+mapper(Event, events, inherits=Content, polymorphic_identity='event')
