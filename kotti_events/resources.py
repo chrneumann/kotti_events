@@ -9,6 +9,7 @@ from sqlalchemy import Integer
 from sqlalchemy.orm import mapper
 from kotti import metadata
 from kotti.resources import Content
+from kotti.resources import File
 from kotti.util import _
 
 class EventFolder(Content):
@@ -38,6 +39,14 @@ class Event(Content):
         addable_to=[u'EventFolder'],
         )
 
+    def get_pictures(self):
+        # TODO: Check on add, not view.
+        supported_mimetypes = ['image/jpeg', 'image/png', 'image/gif']
+        for child in self.keys():
+            if (self[child].type_info.name == EventPicture.type_info.name
+                and self[child].mimetype in supported_mimetypes):
+                yield self[child]
+
     def __init__(self, place=u"", body=u"", start_date=None,
                  end_date=None, start_time=None, end_time=None, **kwargs):
         super(Event, self).__init__(in_navigation=False, **kwargs)
@@ -59,3 +68,21 @@ events = Table('events', metadata,
 )
 
 mapper(Event, events, inherits=Content, polymorphic_identity='event')
+
+class EventPicture(File):
+    type_info = File.type_info.copy(
+        name=u'EventPicture',
+        title=_(u'Event picture'),
+        add_view=u'add_eventpicture',
+        addable_to=[u'Event'],
+        )
+
+    def __init__(self, **kwargs):
+        super(EventPicture, self).__init__(in_navigation=False, **kwargs)
+
+event_pictures = Table('event_pictures', metadata,
+    Column('id', Integer, ForeignKey('files.id'), primary_key=True),
+)
+
+mapper(EventPicture, event_pictures, inherits=File,
+       polymorphic_identity='event_picture')

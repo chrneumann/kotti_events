@@ -25,5 +25,14 @@
       ${api.context.description}
     </p>
     ${structure: api.context.body}
+
+    <div class="event_pictures" tal:define="event_pictures api.context.get_pictures()" tal:condition="event_pictures">
+      <div class="event_picture" tal:repeat="picture event_pictures">
+	<div class="event_picture_image">
+	  Foo! <a href="${api.url(picture)}"><img src="${api.url(picture, '@@inline-view')}"/></a>
+	</div>
+	<div class="event_picture_caption">${picture.title}</div>
+      </div>
+    </div>
   </article>
 </html>

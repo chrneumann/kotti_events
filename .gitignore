@@ -1,5 +1,6 @@
 Kotti.db
 kotti_events.egg-info/
+kotti_events/.ropeproject
 bin/
 develop-eggs/
 dist/

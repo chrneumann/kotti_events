@@ -10,11 +10,17 @@ from kotti.views.edit import generic_add
 from kotti.views.view import view_node
 from kotti.views.util import ensure_view_selector
 from kotti.views.util import template_api
+from kotti.views.file import AddFileFormView
+from kotti.views.file import EditFileFormView
+from kotti.views.file import attachment_view
+from kotti.views.file import inline_view
+
 from deform.widget import TextAreaWidget
 #from kotti.util import _
 _ = lambda x: x
 
 from kotti_events.resources import EventFolder
+from kotti_events.resources import EventPicture
 from kotti_events.resources import Event
 
 
@@ -68,6 +74,22 @@ def view_eventfolder(context, request):
         'past_events': past
         }
 
+class AddEventPictureFormView(AddFileFormView):
+    def add(self, **appstruct):
+        buf = appstruct['file']['fp'].read()
+        return EventPicture(
+            title=appstruct['title'],
+            description=appstruct['description'],
+            data=buf,
+            filename=appstruct['file']['filename'],
+            mimetype=appstruct['file']['mimetype'],
+            size=len(buf),
+            )
+
+
+class EditEventPictureFormView(EditFileFormView):
+    pass
+
 def includeme_edit(config):
     config.add_view(
         edit_events,
@@ -99,7 +121,43 @@ def includeme_edit(config):
         renderer='kotti:templates/edit/node.pt',
         )
 
+    config.add_view(
+        AddEventPictureFormView,
+        name=EventPicture.type_info.add_view,
+        permission='add',
+        renderer='kotti:templates/edit/node.pt',
+        )
+
+    config.add_view(
+        EditEventPictureFormView,
+        context=EventPicture,
+        name='edit',
+        permission='edit',
+        renderer='kotti:templates/edit/node.pt',
+        )
+
 def includeme_view(config):
+    config.add_view(
+        inline_view,
+        context=EventPicture,
+        name='inline-view',
+        permission='view',
+        )
+
+    config.add_view(
+        attachment_view,
+        context=EventPicture,
+        name='attachment-view',
+        permission='view',
+        )
+
+    config.add_view(
+        context=EventPicture,
+        name='view',
+        permission='view',
+        renderer='templates/eventpicture-view.pt',
+        )
+
     config.add_view(
         view_eventfolder,
         context=EventFolder,
