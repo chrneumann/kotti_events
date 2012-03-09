@@ -18,9 +18,10 @@
     </p>
     <div class="body">
       <img src="${api.url(context, '@@inline-view')}">
-      <a href="${api.url(context, '@@attachment-view')}">
-        Download file
-      </a>
     </div>
+    <p>
+      <a href="${api.url(context.parent)}" i18n:translate="">Back to
+	"<span tal:replace="context.parent.title" i18n:name="title" />".</a>
+    </p>
   </article>
 </html>
