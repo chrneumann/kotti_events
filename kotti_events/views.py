@@ -15,7 +15,7 @@ from kotti.views.file import EditFileFormView
 from kotti.views.file import attachment_view
 from kotti.views.file import inline_view
 
-from deform.widget import TextAreaWidget
+from deform.widget import RichTextWidget
 #from kotti.util import _
 _ = lambda x: x
 
@@ -32,7 +32,7 @@ class EventSchema(ContentSchema):
                                 title=_("Place"))
     body = colander.SchemaNode(
         colander.String(),
-        widget=TextAreaWidget(cols=40, rows=5),
+        widget=RichTextWidget(theme='advanced', width=790, height=500),
         missing=u"",
         title=_("Body")
         )
