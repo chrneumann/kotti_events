@@ -13,7 +13,7 @@
 
   <article metal:fill-slot="content" class="event-view content">
     <h1>${api.context.title}</h1>
-    <p>
+    <p class="date_and_place">
       <span>${api.format_date(api.context.start_date)}</span><span tal:condition="api.context.start_time">,
       ${api.format_time(api.context.start_time)}</span>
       <span tal:condition="api.context.end_time or api.context.end_date" tal:replace="'-'"/>
@@ -29,7 +29,7 @@
     <div class="event_pictures" tal:define="event_pictures api.context.get_pictures()" tal:condition="event_pictures">
       <div class="event_picture" tal:repeat="picture event_pictures">
 	<div class="event_picture_image">
-	  Foo! <a href="${api.url(picture)}"><img src="${api.url(picture, '@@inline-view')}"/></a>
+	  <a href="${api.url(picture)}"><img src="${api.url(picture, '@@inline-view')}"/></a>
 	</div>
 	<div class="event_picture_caption">${picture.title}</div>
       </div>
