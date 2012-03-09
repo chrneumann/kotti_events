@@ -17,11 +17,11 @@
       ${context.description}
     </p>
     <div class="body">
-      <img src="${api.url(context, '@@inline-view')}">
+      <img src="${api.url(context, '@@inline-view')}" />
     </div>
     <p>
       <a href="${api.url(context.parent)}" i18n:translate="">Back to
-	"<span tal:replace="context.parent.title" i18n:name="title" />".</a>
+	"<span tal:replace="context.parent.title" i18n:name="title"/>".</a>
     </p>
   </article>
 </html>
