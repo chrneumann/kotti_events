@@ -177,5 +177,6 @@ def includeme_view(config):
     config.add_static_view('static-kotti_events', 'kotti_events:static')
 
 def includeme(config):
+    config.add_translation_dirs('kotti_events:locale/')
     includeme_edit(config)
     includeme_view(config)

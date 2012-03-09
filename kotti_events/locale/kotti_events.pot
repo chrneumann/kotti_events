@@ -1,0 +1,68 @@
+# Translations template for kotti_events.
+# Copyright (C) 2012 Christian Neumann
+# This file is distributed under the same license as the kotti_events
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: kotti_events 0.1.0b\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2012-03-09 14:28+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: kotti_events/resources.py:18
+msgid "Event folder"
+msgstr ""
+
+#: kotti_events/resources.py:37
+msgid "Event"
+msgstr ""
+
+#: kotti_events/resources.py:75
+msgid "Event picture"
+msgstr ""
+
+#: kotti_events/views.py:32
+msgid "Place"
+msgstr ""
+
+#: kotti_events/views.py:37
+msgid "Body"
+msgstr ""
+
+#: kotti_events/views.py:40
+msgid "Start date"
+msgstr ""
+
+#: kotti_events/views.py:42
+msgid "Start time"
+msgstr ""
+
+#: kotti_events/views.py:44
+msgid "End date"
+msgstr ""
+
+#: kotti_events/views.py:46
+msgid "End time"
+msgstr ""
+
+#: kotti_events/templates/eventfolder-view.pt:35
+msgid "Past events"
+msgstr ""
+
+#: kotti_events/templates/eventfolder-view.pt:20
+msgid "Upcoming events"
+msgstr ""
+
+#: kotti_events/templates/eventpicture-view.pt:23
+msgid "Back to \"${title}\"."
+msgstr ""
+
