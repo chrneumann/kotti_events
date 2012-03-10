@@ -48,8 +48,8 @@ This is an extension to Kotti that allows to add collections of events to your w
       # -*- Entry points: -*-
       """,
       message_extractors = { "kotti_events": [
-        ("**.py",   "chameleon_python", None ),
-        ("**.pt",   "chameleon_xml", None ),
+        ("**.py",   "lingua_python", None ),
+        ("**.pt",   "lingua_xml", None ),
         ]},
       cmdclass = {'test': PyTest},
       )
