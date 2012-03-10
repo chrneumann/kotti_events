@@ -14,10 +14,9 @@ from kotti.views.file import AddFileFormView
 from kotti.views.file import EditFileFormView
 from kotti.views.file import attachment_view
 from kotti.views.file import inline_view
-
 from deform.widget import RichTextWidget
-#from kotti.util import _
-_ = lambda x: x
+from pyramid.i18n import TranslationStringFactory
+_ = TranslationStringFactory('kotti_events')
 
 from kotti_events.resources import EventFolder
 from kotti_events.resources import EventPicture

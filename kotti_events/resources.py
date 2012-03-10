@@ -10,7 +10,8 @@ from sqlalchemy.orm import mapper
 from kotti import metadata
 from kotti.resources import Content
 from kotti.resources import File
-from kotti.util import _
+from pyramid.i18n import TranslationStringFactory
+_ = TranslationStringFactory('kotti_events')
 
 class EventFolder(Content):
     type_info = Content.type_info.copy(
