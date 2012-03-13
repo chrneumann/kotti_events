@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotti_events 0.1.0b\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-03-09 14:28+0100\n"
+"POT-Creation-Date: 2012-03-13 20:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,48 +18,48 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: kotti_events/resources.py:18
+#: kotti_events/resources.py:19
 msgid "Event folder"
 msgstr ""
 
-#: kotti_events/resources.py:37
+#: kotti_events/resources.py:38
 msgid "Event"
 msgstr ""
 
-#: kotti_events/resources.py:75
+#: kotti_events/resources.py:76
 msgid "Event picture"
 msgstr ""
 
-#: kotti_events/views.py:32
+#: kotti_events/views.py:31
 msgid "Place"
 msgstr ""
 
-#: kotti_events/views.py:37
+#: kotti_events/views.py:36
 msgid "Body"
 msgstr ""
 
-#: kotti_events/views.py:40
+#: kotti_events/views.py:39
 msgid "Start date"
 msgstr ""
 
-#: kotti_events/views.py:42
+#: kotti_events/views.py:41
 msgid "Start time"
 msgstr ""
 
-#: kotti_events/views.py:44
+#: kotti_events/views.py:43
 msgid "End date"
 msgstr ""
 
-#: kotti_events/views.py:46
+#: kotti_events/views.py:45
 msgid "End time"
-msgstr ""
-
-#: kotti_events/templates/eventfolder-view.pt:35
-msgid "Past events"
 msgstr ""
 
 #: kotti_events/templates/eventfolder-view.pt:20
 msgid "Upcoming events"
+msgstr ""
+
+#: kotti_events/templates/eventfolder-view.pt:35
+msgid "Past events"
 msgstr ""
 
 #: kotti_events/templates/eventpicture-view.pt:23

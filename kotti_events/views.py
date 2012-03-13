@@ -56,7 +56,7 @@ def edit_event(context, request):
     return generic_edit(context, request, EventSchema())
 
 def add_event(context, request):
-    return generic_add(context, request, EventSchema(), Event, u'event')
+    return generic_add(context, request, EventSchema(), Event, Event.type_info.title)
 
 def view_eventfolder(context, request):
     session = DBSession()

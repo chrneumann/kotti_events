@@ -1,4 +1,3 @@
-
 # German (Germany) translations for kotti_events.
 # Copyright (C) 2012 Christian Neumann
 # This file is distributed under the same license as the kotti_events
@@ -9,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotti_events 0.1.0b\n"
 "Report-Msgid-Bugs-To: cneumann@datenkarussell.de\n"
-"POT-Creation-Date: 2012-03-09 14:28+0100\n"
+"POT-Creation-Date: 2012-03-13 20:36+0100\n"
 "PO-Revision-Date: 2012-03-09 14:29+0100\n"
 "Last-Translator: Christian Neumann <cneumann@datenkarussell.de>\n"
 "Language-Team: de_DE <LL@li.org>\n"
@@ -19,49 +18,49 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: kotti_events/resources.py:18
+#: kotti_events/resources.py:19
 msgid "Event folder"
 msgstr "Veranstaltungsordner"
 
-#: kotti_events/resources.py:37
+#: kotti_events/resources.py:38
 msgid "Event"
 msgstr "Veranstaltung"
 
-#: kotti_events/resources.py:75
+#: kotti_events/resources.py:76
 msgid "Event picture"
 msgstr "Veranstaltungs-Foto"
 
-#: kotti_events/views.py:32
+#: kotti_events/views.py:31
 msgid "Place"
 msgstr "Ort"
 
-#: kotti_events/views.py:37
+#: kotti_events/views.py:36
 msgid "Body"
 msgstr "Inhalt"
 
-#: kotti_events/views.py:40
+#: kotti_events/views.py:39
 msgid "Start date"
 msgstr "Startdatum"
 
-#: kotti_events/views.py:42
+#: kotti_events/views.py:41
 msgid "Start time"
 msgstr "Startzeit"
 
-#: kotti_events/views.py:44
+#: kotti_events/views.py:43
 msgid "End date"
 msgstr "Enddatum"
 
-#: kotti_events/views.py:46
+#: kotti_events/views.py:45
 msgid "End time"
 msgstr "Endzeit"
-
-#: kotti_events/templates/eventfolder-view.pt:35
-msgid "Past events"
-msgstr "Vergangene Veranstaltungen"
 
 #: kotti_events/templates/eventfolder-view.pt:20
 msgid "Upcoming events"
 msgstr "Kommende Veranstaltungen"
+
+#: kotti_events/templates/eventfolder-view.pt:35
+msgid "Past events"
+msgstr "Vergangene Veranstaltungen"
 
 #: kotti_events/templates/eventpicture-view.pt:23
 msgid "Back to \"${title}\"."
