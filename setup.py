@@ -23,7 +23,7 @@ This is an extension to Kotti that allows to add collections of events to your w
 Development happens at https://github.com/chrneumann/kotti_events
 """,
       classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Programming Language :: Python",
         "Framework :: Pylons",
         "Topic :: Internet :: WWW/HTTP",
@@ -37,9 +37,11 @@ Development happens at https://github.com/chrneumann/kotti_events
       url='http://pypi.python.org/pypi/kotti_events',
       license='BSD License',
       packages=['kotti_events'],
-      package_data={'kotti_events': ['templates/*.pt',
-                                          'locale/*.*',
-                                          'locale/*/LC_MESSAGES/*.*']},
+      package_data={'kotti_events': [
+            'static/*',
+            'templates/*.pt',
+            'locale/*.*',
+            'locale/*/LC_MESSAGES/*.*']},
       include_package_data=True,
       zip_safe=False,
       install_requires=[
