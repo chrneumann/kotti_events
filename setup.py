@@ -19,7 +19,9 @@ setup(name='kotti_events',
       version=version,
       description="Event collection for Kotti sites",
       long_description="""\
-This is an extension to Kotti that allows to add collections of events to your website.""",
+This is an extension to Kotti that allows to add collections of events to your website.
+Development happens at https://github.com/chrneumann/kotti_events
+""",
       classifiers=[
         "Development Status :: 3 - Alpha",
         "Programming Language :: Python",
