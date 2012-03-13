@@ -1,0 +1,40 @@
+.event-pictures {
+    padding:0;
+    max-width:600px;
+    margin:2em auto;
+}
+
+.event-picture-image {
+    height:112px;   
+}
+
+.event-picture-image img {
+    border:3px solid #AAA;
+}
+
+.event-picture {
+    width:180px;
+    text-align:center;
+    vertical-align:bottom;
+    margin:10px;
+    float:left;
+}
+
+.event-picture-caption {
+    margin-top:1.5em;
+}
+
+.event-list {
+    list-style:none;
+    padding:0;
+}
+
+.event-list li {
+    padding-left:10px;
+    border-left:1px solid gray;
+    margin-bottom:10px;
+}
+
+.event-view .date_and_place {
+    font-weight:bold;
+}

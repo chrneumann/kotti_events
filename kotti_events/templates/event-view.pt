@@ -7,7 +7,7 @@
       metal:use-macro="api.macro('kotti:templates/view/master.pt')">
 
   <head tal:omit-tag="" metal:fill-slot="head-more">
-<!-- <link rel="stylesheet" href="${request.static_url('kotti_events:static/style.css')}" type="text/css" /> -->
+    <link rel="stylesheet" href="${request.static_url('kotti_events:static/style.css')}" type="text/css" />
     <more tal:omit-tag="" metal:define-slot="head"></more>
   </head>
 
@@ -26,12 +26,12 @@
     </p>
     ${structure: api.context.body}
 
-    <div class="event_pictures" tal:define="event_pictures api.context.get_pictures()" tal:condition="event_pictures">
-      <div class="event_picture" tal:repeat="picture event_pictures">
-	<div class="event_picture_image">
+    <div class="event-pictures" tal:define="event_pictures api.context.get_pictures()" tal:condition="event_pictures">
+      <div class="event-picture" tal:repeat="picture event_pictures">
+	<div class="event-picture-image">
 	  <a href="${api.url(picture)}"><img src="${api.url(picture, '@@inline-view')}"/></a>
 	</div>
-	<div class="event_picture_caption">${picture.title}</div>
+	<div class="event-picture-caption">${picture.title}</div>
       </div>
     </div>
   </article>

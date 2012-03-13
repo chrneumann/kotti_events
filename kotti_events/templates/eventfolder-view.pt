@@ -7,7 +7,7 @@
       metal:use-macro="api.macro('kotti:templates/view/master.pt')">
 
   <head tal:omit-tag="" metal:fill-slot="head-more">
-<!-- <link rel="stylesheet" href="${request.static_url('kotti_events:static/style.css')}" type="text/css" /> -->
+    <link rel="stylesheet" href="${request.static_url('kotti_events:static/style.css')}" type="text/css" />
     <more tal:omit-tag="" metal:define-slot="head"></more>
   </head>
 
@@ -18,7 +18,7 @@
     </p>
 
     <h2 tal:condition="upcoming_events" i18n:translate="">Upcoming events</h2>
-    <ul tal:condition="upcoming_events">
+    <ul tal:condition="upcoming_events" class="event-list">
       <li tal:repeat="event upcoming_events">
         <span>${api.format_date(event.start_date)}</span><span tal:condition="event.start_time">,
 	  ${api.format_time(event.start_time)}</span>
@@ -33,7 +33,7 @@
     </ul>
 
     <h2 tal:condition="past_events" i18n:translate="">Past events</h2>
-    <ul tal:condition="past_events">
+    <ul tal:condition="past_events" class="event-list">
       <li tal:repeat="event past_events">
         <span>${api.format_date(event.start_date)}</span><span tal:condition="event.start_time">,
 	  ${api.format_time(event.start_time)}</span>
