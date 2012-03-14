@@ -84,11 +84,23 @@ class AddEventPictureFormView(AddFileFormView):
 class EditEventPictureFormView(EditFileFormView):
     pass
 
-def thumbnail_view(context, request, size=(180,112)):
+def thumbnail_view(context, request, size=(270,168)):
     img = Image.open(StringIO(context.data))
-    img.thumbnail(size)
+    img_format = img.format
+    wanted_ratio = float(size[0])/size[1]
+    img_ratio = float(img.size[0])/img.size[1]
+
+    if wanted_ratio > img_ratio:
+        new_height = int(img.size[0] / wanted_ratio)
+        y_offset = int((img.size[1] - new_height) / 2.0)
+        img = img.crop((0,y_offset,img.size[0],y_offset + new_height))
+    elif img_ratio > wanted_ratio:
+        new_width = int(img.size[1] * wanted_ratio)
+        x_offset = int((img.size[0] - new_width) / 2.0)
+        img = img.crop((x_offset,0,x_offset + new_width,img.size[1]))
+    img.thumbnail(size, Image.ANTIALIAS)
     thumbnail = StringIO()
-    img.save(thumbnail, img.format)
+    img.save(thumbnail, img_format)
     res = Response(
         headerlist=[
             ('Content-Length', str(len(thumbnail.getvalue()))),

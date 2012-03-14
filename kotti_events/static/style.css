@@ -9,7 +9,8 @@
 }
 
 .event-picture-image img {
-    border:3px solid #AAA;
+    border-radius:10px;
+    border:1px solid gray;
 }
 
 .event-picture {
@@ -30,9 +31,22 @@
 }
 
 .event-list li {
+    clear:both;
     padding-left:10px;
-    border-left:1px solid gray;
+    margin:10px 0;
+}
+
+.event-icon {
+    float:left;
+    width:90px;
+    height:56px;
+    margin-right:10px;
     margin-bottom:10px;
+}
+
+.event-icon img {
+    border-radius:5px;
+    border:1px solid gray;
 }
 
 .event-view .date_and_place {

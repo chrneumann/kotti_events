@@ -40,6 +40,14 @@ class Event(Content):
         addable_to=[u'EventFolder'],
         )
 
+    def get_icon(self):
+        """
+        Get icon child image.
+        """
+        for picture in self.get_pictures():
+            return picture
+        return None
+
     def get_pictures(self):
         # TODO: Check on add, not view.
         supported_mimetypes = ['image/jpeg', 'image/png', 'image/gif']
