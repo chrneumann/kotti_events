@@ -2,8 +2,6 @@ import datetime
 from pyramid.url import resource_url
 
 import colander
-from sqlalchemy import desc
-from kotti import DBSession
 from kotti.views.edit import ContentSchema
 from kotti.views.edit import generic_edit
 from kotti.views.edit import generic_add
@@ -21,6 +19,8 @@ _ = TranslationStringFactory('kotti_events')
 from kotti_events.resources import EventFolder
 from kotti_events.resources import EventPicture
 from kotti_events.resources import Event
+from kotti_events.util import get_upcoming_events
+from kotti_events.util import get_past_events
 
 
 class EventFolderSchema(ContentSchema):
@@ -59,18 +59,10 @@ def add_event(context, request):
     return generic_add(context, request, EventSchema(), Event, Event.type_info.title)
 
 def view_eventfolder(context, request):
-    session = DBSession()
-    now = datetime.datetime.now()
-    query = session.query(Event).filter(Event.parent_id==context.id)
-    now = datetime.datetime.now()
-    upcoming = query.filter(Event.start_date >= now).order_by(
-        Event.start_date, Event.start_time).all()
-    past = query.filter(Event.start_date < now).order_by(
-        desc(Event.start_date), desc(Event.start_time)).all()
     return {
         'api': template_api(context, request),
-        'upcoming_events': upcoming,
-        'past_events': past
+        'upcoming_events': get_upcoming_events(context),
+        'past_events': get_past_events(context),
         }
 
 class AddEventPictureFormView(AddFileFormView):
