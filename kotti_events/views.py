@@ -1,6 +1,8 @@
 import datetime
 from pyramid.url import resource_url
 
+from StringIO import StringIO
+import Image
 import colander
 from kotti.views.edit import ContentSchema
 from kotti.views.edit import generic_edit
@@ -15,6 +17,7 @@ from kotti.views.file import inline_view
 from deform.widget import RichTextWidget
 from pyramid.i18n import TranslationStringFactory
 _ = TranslationStringFactory('kotti_events')
+from pyramid.response import Response
 
 from kotti_events.resources import EventFolder
 from kotti_events.resources import EventPicture
@@ -81,6 +84,23 @@ class AddEventPictureFormView(AddFileFormView):
 class EditEventPictureFormView(EditFileFormView):
     pass
 
+def thumbnail_view(context, request, size=(180,112)):
+    img = Image.open(StringIO(context.data))
+    img.thumbnail(size)
+    thumbnail = StringIO()
+    img.save(thumbnail, img.format)
+    res = Response(
+        headerlist=[
+            ('Content-Length', str(len(thumbnail.getvalue()))),
+            ('Content-Type', str(context.mimetype)),
+            ],
+        app_iter=thumbnail.getvalue(),
+        )
+    return res
+
+def icon_view(context, request):
+    return thumbnail_view(context, request, (90,56))
+
 def includeme_edit(config):
     config.add_view(
         edit_events,
@@ -128,6 +148,20 @@ def includeme_edit(config):
         )
 
 def includeme_view(config):
+    config.add_view(
+        thumbnail_view,
+        context=EventPicture,
+        name='thumbnail-view',
+        permission='view',
+        )
+
+    config.add_view(
+        icon_view,
+        context=EventPicture,
+        name='icon-view',
+        permission='view',
+        )
+
     config.add_view(
         inline_view,
         context=EventPicture,

@@ -29,7 +29,7 @@
     <div class="event-pictures" tal:define="event_pictures api.context.get_pictures()" tal:condition="event_pictures">
       <div class="event-picture" tal:repeat="picture event_pictures">
 	<div class="event-picture-image">
-	  <a href="${api.url(picture)}"><img src="${api.url(picture, '@@inline-view')}"/></a>
+	  <a href="${api.url(picture)}"><img src="${api.url(picture, '@@thumbnail-view')}"/></a>
 	</div>
 	<div class="event-picture-caption">${picture.title}</div>
       </div>
