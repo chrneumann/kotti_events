@@ -41,11 +41,11 @@ class EventSchema(ContentSchema):
     start_date = colander.SchemaNode(
         colander.Date(), title=_("Start date"))
     start_time = colander.SchemaNode(
-        colander.Time(), title=_("Start time"))
+        colander.Time(), title=_("Start time"), missing=None)
     end_date = colander.SchemaNode(
-        colander.Date(), title=_("End date"))
+        colander.Date(), title=_("End date"), missing=None)
     end_time = colander.SchemaNode(
-        colander.Time(), title=_("End time"))
+        colander.Time(), title=_("End time"), missing=None)
 
 @ensure_view_selector
 def edit_events(context, request):
