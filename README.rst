@@ -2,8 +2,6 @@
 kotti_events
 ============
 
-!! Still under development !! Do not use !!
-
 This is an extension to Kotti that allows to add a collection of
 events to your site.
 

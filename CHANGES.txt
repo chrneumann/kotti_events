@@ -5,6 +5,9 @@ History
 -------
 
 - Update models to use Declarative for compatibility with Kotti >= 0.6.
+- All dates but the start date are now optional for events.
+- Added thumbnail and icon views for event pictures.
+- Updated layouts and style sheets.
 
 0.1.0b1
 -------
