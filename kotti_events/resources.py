@@ -15,7 +15,7 @@ _ = TranslationStringFactory('kotti_events')
 
 class EventFolder(Content):
     __tablename__ = 'event_folders'
-    
+    __mapper_args__ = dict(polymorphic_identity='event_folder')
     id = Column('id', Integer, ForeignKey('contents.id'), primary_key=True)
 
     type_info = Content.type_info.copy(
@@ -72,6 +72,7 @@ class Event(Content):
 
 class EventPicture(File):
     id = Column(Integer, ForeignKey('files.id'), primary_key=True)
+    __mapper_args__ = dict(polymorphic_identity='event_picture')
 
     type_info = File.type_info.copy(
         name=u'EventPicture',
