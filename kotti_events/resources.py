@@ -14,6 +14,10 @@ from pyramid.i18n import TranslationStringFactory
 _ = TranslationStringFactory('kotti_events')
 
 class EventFolder(Content):
+    __tablename__ = 'event_folders'
+    
+    id = Column('id', Integer, ForeignKey('contents.id'), primary_key=True)
+
     type_info = Content.type_info.copy(
         name=u'EventFolder',
         title=_(u"Event folder"),
@@ -24,15 +28,15 @@ class EventFolder(Content):
     def __init__(self, **kwargs):
         super(EventFolder, self).__init__(**kwargs)
 
-eventfolders = Table(
-    'event_folders', metadata,
-    Column('id', Integer, ForeignKey('contents.id'), primary_key=True),
-)
-
-mapper(EventFolder, eventfolders, inherits=Content,
-       polymorphic_identity='event_folder')
-
 class Event(Content):
+    id = Column(Integer, ForeignKey('contents.id'), primary_key=True)
+    place = Column(String(100))
+    body = Column(Text())
+    start_date = Column(Date())
+    start_time = Column(Time(), nullable=True)
+    end_date = Column(Date(), nullable=True)
+    end_time = Column(Time(), nullable=True)
+
     type_info = Content.type_info.copy(
         name=u'Event',
         title=_(u'Event'),
@@ -66,19 +70,9 @@ class Event(Content):
         self.end_date = end_date
         self.end_time = end_time
 
-events = Table('events', metadata,
-    Column('id', Integer, ForeignKey('contents.id'), primary_key=True),
-    Column('place', String(100)),
-    Column('body', Text()),
-    Column('start_date', Date()),
-    Column('start_time', Time(), nullable=True),
-    Column('end_date', Date(), nullable=True),
-    Column('end_time', Time(), nullable=True),
-)
-
-mapper(Event, events, inherits=Content, polymorphic_identity='event')
-
 class EventPicture(File):
+    id = Column(Integer, ForeignKey('files.id'), primary_key=True)
+
     type_info = File.type_info.copy(
         name=u'EventPicture',
         title=_(u'Event picture'),
@@ -88,10 +82,3 @@ class EventPicture(File):
 
     def __init__(self, **kwargs):
         super(EventPicture, self).__init__(in_navigation=False, **kwargs)
-
-event_pictures = Table('event_pictures', metadata,
-    Column('id', Integer, ForeignKey('files.id'), primary_key=True),
-)
-
-mapper(EventPicture, event_pictures, inherits=File,
-       polymorphic_identity='event_picture')

@@ -2,7 +2,11 @@ from setuptools import setup, find_packages
 from setuptools import Command
 import sys, os
 
-version = '0.1.0b'
+version = '0.1.0b2'
+
+here = os.path.abspath(os.path.dirname(__file__))
+README = open(os.path.join(here, 'README.rst')).read()
+CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 class PyTest(Command):
     user_options = []
@@ -18,10 +22,7 @@ class PyTest(Command):
 setup(name='kotti_events',
       version=version,
       description="Event collection for Kotti sites",
-      long_description="""\
-This is an extension to Kotti that allows to add collections of events to your website.
-Development happens at https://github.com/chrneumann/kotti_events
-""",
+      long_description=README + '\n\n' + CHANGES,
       classifiers=[
         "Development Status :: 4 - Beta",
         "Programming Language :: Python",
@@ -45,7 +46,7 @@ Development happens at https://github.com/chrneumann/kotti_events
       include_package_data=True,
       zip_safe=False,
       install_requires=[
-        'Kotti',
+        'Kotti >= 0.6.0b1',
         'Babel',
       ],
       entry_points="""
