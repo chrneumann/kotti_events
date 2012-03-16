@@ -2,7 +2,10 @@ import datetime
 from pyramid.url import resource_url
 
 from StringIO import StringIO
-import Image
+try:
+    import Image
+except ImportError:
+    from PIL import Image
 import colander
 from kotti.views.edit import ContentSchema
 from kotti.views.edit import generic_edit
