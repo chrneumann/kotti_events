@@ -71,8 +71,9 @@ class Event(Content):
         self.end_time = end_time
 
 class EventPicture(File):
-    id = Column(Integer, ForeignKey('files.id'), primary_key=True)
+    __tablename__ = 'event_pictures'
     __mapper_args__ = dict(polymorphic_identity='event_picture')
+    id = Column(Integer, ForeignKey('files.id'), primary_key=True)
 
     type_info = File.type_info.copy(
         name=u'EventPicture',
