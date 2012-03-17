@@ -1,8 +1,8 @@
 History
 =======
 
-0.1.0b2
--------
+0.1.0b2 - 2012-03-16
+--------------------
 
 - Update models to use Declarative for compatibility with Kotti >= 0.6.
 - All dates but the start date are now optional for events.
