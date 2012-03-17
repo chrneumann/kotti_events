@@ -1,5 +1,6 @@
 include README.rst
 include COPYING.txt
+include CHANGES.txt
 recursive-include kotti_events *.mo *.pt *.txt *.css
 include development.ini
 include runtests.py
