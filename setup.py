@@ -48,6 +48,7 @@ setup(name='kotti_events',
       install_requires=[
         'Kotti >= 0.6.0b1',
         'Babel',
+        'PIL',
       ],
       entry_points="""
       # -*- Entry points: -*-
