@@ -1,3 +1,4 @@
+from datetime import datetime
 from sqlalchemy import Table
 from sqlalchemy import Column
 from sqlalchemy import ForeignKey
@@ -60,7 +61,7 @@ class Event(Content):
                 and self[child].mimetype in supported_mimetypes):
                 yield self[child]
 
-    def __init__(self, place=u"", body=u"", start_date=None,
+    def __init__(self, place=u"", body=u"", start_date=datetime.now(),
                  end_date=None, start_time=None, end_time=None, **kwargs):
         super(Event, self).__init__(in_navigation=False, **kwargs)
         self.place = place

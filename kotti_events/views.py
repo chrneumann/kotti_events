@@ -29,6 +29,7 @@ from kotti_events.util import get_upcoming_events
 from kotti_events.util import get_past_events
 
 
+
 class EventFolderSchema(ContentSchema):
     pass
 
@@ -42,14 +43,13 @@ class EventSchema(ContentSchema):
         title=_("Body")
         )
     start_date = colander.SchemaNode(
-        colander.Date(), title=_("Start date"))
+        colander.Date(), title=_("Start date"), default=datetime.datetime.now())
     start_time = colander.SchemaNode(
-        colander.Time(), title=_("Start time"), missing=None, default=None)
-# FIXME
-#    end_date = colander.SchemaNode(
-#        colander.Date(), title=_("End date"), missing=None, default=None)
-#    end_time = colander.SchemaNode(
-#        colander.Time(), title=_("End time"), missing=None, default=None)
+        colander.Time(), title=_("Start time"), missing=None)
+    end_date = colander.SchemaNode(
+        colander.Date(), title=_("End date"), missing=None)
+    end_time = colander.SchemaNode(
+        colander.Time(), title=_("End time"), missing=None)
 
 @ensure_view_selector
 def edit_events(context, request):
