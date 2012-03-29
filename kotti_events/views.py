@@ -56,7 +56,8 @@ def edit_events(context, request):
     return generic_edit(context, request, EventFolderSchema())
 
 def add_events(context, request):
-    return generic_add(context, request, EventFolderSchema(), EventFolder, u'calendar')
+    return generic_add(context, request, EventFolderSchema(), EventFolder,
+                       EventFolder.type_info.title)
 
 @ensure_view_selector
 def edit_event(context, request):
