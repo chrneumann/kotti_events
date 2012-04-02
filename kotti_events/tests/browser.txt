@@ -69,7 +69,7 @@ Add an upcoming event
   >>> ctrl("Place").value = "Paris"
   >>> ctrl("Body").value = "We'll have some fun!"
   >>> import datetime
-  >>> future = datetime.datetime.now().date() + datetime.timedelta(days=9)
+  >>> future = datetime.datetime.now().date()
   >>> ctrl("Start date").value = str(future)
   >>> ctrl("save").click()
   >>> "Successfully added item" in browser.contents

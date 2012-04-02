@@ -11,7 +11,7 @@ def get_upcoming_events(folder):
     now = datetime.now()
     events = session.query(Event)\
         .filter(Event.parent_id==folder.id)\
-        .filter(Event.start_date >= now)\
+        .filter(Event.start_date >= now.date())\
         .order_by(Event.start_date, Event.start_time)\
         .all()
     return events
@@ -24,7 +24,7 @@ def get_past_events(folder, limit=None):
     now = datetime.now()
     query = session.query(Event)\
         .filter(Event.parent_id==folder.id)\
-        .filter(Event.start_date < now)\
+        .filter(Event.start_date < now.date())\
         .order_by(desc(Event.start_date), desc(Event.start_time))
     events = (limit and query.limit(limit) or query).all()
     return events
