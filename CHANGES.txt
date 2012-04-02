@@ -6,6 +6,7 @@ History
 
 - Fixed title in add/edit view for event folders
 - Added tests
+- Fixed bug concering query of upcoming events
 
 0.1.0b2 - 2012-03-16
 --------------------
