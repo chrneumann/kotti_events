@@ -25,10 +25,8 @@
 	<span tal:condition="event.end_time or event.end_date" tal:replace="'-'"/>
         <span tal:condition="event.end_date">${api.format_date(event.end_date)}<span tal:condition="event.end_time" tal:replace="','"/></span>
 	<span tal:condition="event.end_time">${api.format_time(event.end_time)}</span>
-	<br/>
-        <a href="${api.url(event)}" title="${event.description}">
-          ${event.title}
-        </a>
+	<br />
+        <a href="${api.url(event)}" title="${event.description}">${event.title}</a>
       </li>
     </ul>
 
@@ -43,10 +41,8 @@
 	<span tal:condition="event.end_time or event.end_date" tal:replace="'-'"/>
         <span tal:condition="event.end_date">${api.format_date(event.end_date)}<span tal:condition="event.end_time" tal:replace="','"/></span>
 	<span tal:condition="event.end_time">${api.format_time(event.end_time)}</span>
-	<br/>
-        <a href="${api.url(event)}" title="${event.description}">
-          ${event.title}
-        </a>
+	<br />
+        <a href="${api.url(event)}" title="${event.description}">${event.title}</a>
       </li>
     </ul>
 

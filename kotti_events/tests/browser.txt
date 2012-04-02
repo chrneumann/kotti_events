@@ -1,0 +1,194 @@
+kotti_event_picture browser tests
+=================================
+
+Setup
+-----
+
+  >>> from kotti import testing, DBSession
+  >>> from kotti.resources import Node, Document, File
+
+Get a handle for some useful objects:
+
+  >>> settings = {'kotti.configurators': 'kotti_events.kotti_configure' }
+  >>> tools = testing.setUpFunctional(**settings)
+  >>> browser = tools['Browser']()
+  >>> ctrl = browser.getControl
+  >>> session = DBSession()
+  >>> root = session.query(Node).get(1)
+  >>> mailer = testing.registerDummyMailer()
+  >>> save_addable_document = Document.type_info.addable_to
+  >>> save_addable_file = File.type_info.addable_to
+
+Open the frontpage and login:
+
+  >>> browser.open(testing.BASE_URL)
+  >>> browser.open(testing.BASE_URL + '/edit')
+  >>> ctrl("Username or email").value = "admin"
+  >>> ctrl("Password").value = "secret"
+  >>> ctrl(name="submit").click()
+
+Add an event folder
+-------------------
+
+  >>> browser.getLink("Add").click()
+  >>> browser.getLink("Event folder").click()
+  >>> "Add Event folder to <em>Welcome to Kotti</em>" in browser.contents
+  True
+  >>> ctrl("Title").value = "My Events!!"
+  >>> ctrl("save").click()
+  >>> "Successfully added item" in browser.contents
+  True
+  >>> browser.url == testing.BASE_URL + '/my-events/'
+  True
+
+Edit an event folder
+--------------------
+
+  >>> "My Events!!" in browser.contents
+  True
+  >>> browser.getLink("Edit").click()
+  >>> "Edit <em>My Events!!</em>" in browser.contents
+  True
+  >>> ctrl("Title").value = "My Events"
+  >>> ctrl("save").click()
+  >>> "Your changes have been saved." in browser.contents
+  True
+  >>> browser.url == testing.BASE_URL + '/my-events/'
+  True
+  >>> "My Events" in browser.contents
+  True
+
+Add an upcoming event
+---------------------
+
+  >>> browser.getLink("Add").click()
+  >>> browser.getLink("Event").click()
+  >>> "Add Event to <em>My Events</em>" in browser.contents
+  True
+  >>> ctrl("Title").value = "Event number one"
+  >>> ctrl("Place").value = "Paris"
+  >>> ctrl("Body").value = "We'll have some fun!"
+  >>> import datetime
+  >>> future = datetime.datetime.now().date() + datetime.timedelta(days=9)
+  >>> ctrl("Start date").value = str(future)
+  >>> ctrl("save").click()
+  >>> "Successfully added item" in browser.contents
+  True
+  >>> browser.url == testing.BASE_URL + '/my-events/event-number-one/'
+  True
+  >>> str(future.year) in browser.contents
+  True
+  >>> "Paris" in browser.contents
+  True
+  >>> "We'll have some fun" in browser.contents
+  True
+  >>> "Event number one" in browser.contents
+  True
+  >>> browser.getLink("My Events").click()
+  >>> "Upcoming events" in browser.contents
+  True
+  >>> "Past events" in browser.contents
+  False
+  >>> str(future.year) in browser.contents
+  True
+  >>> "Event number one" in browser.contents
+  True
+
+Add a past event
+----------------
+
+  >>> browser.getLink("Add").click()
+  >>> browser.getLink("Event").click()
+  >>> "Add Event to <em>My Events</em>" in browser.contents
+  True
+  >>> ctrl("Title").value = "Event number two"
+  >>> ctrl("Place").value = "Moscow"
+  >>> past = datetime.datetime.now().date() + datetime.timedelta(days=-9)
+  >>> ctrl("Start date").value = str(past)
+  >>> ctrl("save").click()
+  >>> str(past.year) in browser.contents
+  True
+  >>> "Event number two" in browser.contents
+  True
+  >>> browser.getLink("My Events").click()
+  >>> "Upcoming events" in browser.contents
+  True
+  >>> "Past events" in browser.contents
+  True
+  >>> "Event number one" in browser.contents
+  True
+
+Edit an event folder
+--------------------
+
+  >>> browser.getLink("Event number one").click()
+  >>> "Paris" in browser.contents
+  True
+  >>> browser.getLink("Edit").click()
+  >>> "Edit <em>Event number one</em>" in browser.contents
+  True
+  >>> ctrl("Place").value = "Berlin"
+  >>> ctrl("save").click()
+  >>> "Your changes have been saved." in browser.contents
+  True
+  >>> "Berlin" in browser.contents
+  True
+
+Add an event picture
+--------------------
+
+  >>> browser.getLink("My Events").click()
+  >>> browser.getLink("Event number one").click()
+  >>> browser.getLink("Add").click()
+  >>> browser.getLink("Event picture").click()
+  >>> "Add Event picture to <em>Event number one</em>" in browser.contents
+  True
+  >>> ctrl("Title").value = "A nice picture"
+  >>> simple_png = '\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00(\x00\x00\x00\x1e\x08\x02\x00\x00\x00\xd1\xbf\xcb\x8a\x00\x00\x00\x01sRGB\x00\xae\xce\x1c\xe9\x00\x00\x00NIDATH\xc7\xed\x97A\n\x00 \x08\x04\xdd\xe8\xff_\xb6[\x04y\x8aB\xa1\x99\x9b \x0c\xeae\x95\xbb[\x06\xcd\x92\xe8k!i\xefx\xb4\x92\xb4\x89\x11#F\x8c\x181b\xc4\xc5\x12HH\x18K\x8e\x99y\x86\x1b\x17\xba1)\xf3\x12\xfa\xee\x85I\x13\x0f\xaed\x0f8\xc0)\x84\x11\x00\x00\x00\x00IEND\xaeB`\x82'
+  >>> import cStringIO
+  >>> ctrl("File").add_file(cStringIO.StringIO(simple_png), 'text/plain', 'simple.png')
+  >>> ctrl("save").click()
+  >>> "Successfully added item" in browser.contents
+  True
+  >>> picture_url = testing.BASE_URL + '/my-events/event-number-one/a-nice-picture/'
+  >>> browser.url == picture_url
+  True
+  >>> 'a-nice-picture/@@inline-view' in browser.contents
+  True
+  >>> browser.open(picture_url + '@@inline-view')
+  >>> simple_png in browser.contents
+  True
+  >>> browser.open(picture_url + '@@thumbnail-view')
+  >>> "\x89PNG" in browser.contents
+  True
+  >>> browser.open(picture_url + '@@icon-view')
+  >>> "\x89PNG" in browser.contents
+  True
+
+Add an event picture with different ratio
+-----------------------------------------
+
+  >>> browser.open(testing.BASE_URL + '/my-events/event-number-one/')
+  >>> browser.getLink("Add").click()
+  >>> browser.getLink("Event picture").click()
+  >>> ctrl("Title").value = "Another nice picture"
+  >>> simple_png = '\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00d\x00\x00\x00\x1e\x08\x02\x00\x00\x00U9,\xa4\x00\x00\x00\x01sRGB\x00\xae\xce\x1c\xe9\x00\x00\x00\tpHYs\x00\x00.#\x00\x00.#\x01x\xa5?v\x00\x00\x00\x07tIME\x07\xdc\x04\x02\x0b\x198I\xf6\xe6\xd8\x00\x00\x00\x80IDATh\xde\xed\xd9\xd1\t\xc0 \x0cE\xd1Z:\x80\x19I\x17\xca\x08\xba\x98\x8e\xa4#\xc4\x01J\xc1\x82 \xa5\xf7\x8epx\xf9\x8a3\xb3\x83\xe6:!X\x83Uk\x8d1\xba7\x89H\xce\xb9\xf7\xce\xb2X\x16\x81\x05\x16X`\x81\x05\x16\x81\x05\x16X`\x81\x05\x16\x81\x05\x16X\x1f\xca\x9e+\xa5\x84\x10\xfe\x06\xe2\xbdO)\xb5\xd6\xee ,\x8b3\x04k{\xd7\xf2\x83WUU\x15\x11\x96\xc5\x19\xd2\\\x8e\xf7=\xcb\x02kw\x03\xae\xa6E#\xbb0\x95\xba\x00\x00\x00\x00IEND\xaeB`\x82'
+  >>> import cStringIO
+  >>> ctrl("File").add_file(cStringIO.StringIO(simple_png), 'text/plain', 'simple.png')
+  >>> ctrl("save").click()
+  >>> "Successfully added item" in browser.contents
+  True
+  >>> picture_url = testing.BASE_URL + '/my-events/event-number-one/another-nice-picture/'
+  >>> browser.url == picture_url
+  True
+  >>> 'another-nice-picture/@@inline-view' in browser.contents
+  True
+  >>> browser.open(picture_url + '@@inline-view')
+  >>> simple_png in browser.contents
+  True
+  >>> browser.open(picture_url + '@@thumbnail-view')
+  >>> "\x89PNG" in browser.contents
+  True
+  >>> browser.open(picture_url + '@@icon-view')
+  >>> "\x89PNG" in browser.contents
+  True

@@ -2,9 +2,9 @@ import datetime
 from pyramid.url import resource_url
 
 from StringIO import StringIO
-try:
+try: # pragma: no cover
     import Image
-except ImportError:
+except ImportError: # pragma: no cover
     from PIL import Image
 import colander
 from kotti.views.edit import ContentSchema
@@ -74,6 +74,7 @@ def view_eventfolder(context, request):
         }
 
 class AddEventPictureFormView(AddFileFormView):
+    item_type = EventPicture.type_info.title
     def add(self, **appstruct):
         buf = appstruct['file']['fp'].read()
         return EventPicture(
@@ -84,7 +85,6 @@ class AddEventPictureFormView(AddFileFormView):
             mimetype=appstruct['file']['mimetype'],
             size=len(buf),
             )
-
 
 class EditEventPictureFormView(EditFileFormView):
     pass
