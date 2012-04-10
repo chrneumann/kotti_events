@@ -4,6 +4,7 @@ History
 0.1.0b3 - Unreleased
 --------------------
 
+- Removed times for past events in event folder
 - Changed date format to 'full' and time format to 'short'
 - Fixed title in add/edit view for event folders
 - Added tests
