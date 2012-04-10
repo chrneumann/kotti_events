@@ -14,11 +14,11 @@
   <article metal:fill-slot="content" class="event-view content">
     <h1>${api.context.title}</h1>
     <p class="date_and_place">
-      <span>${api.format_date(api.context.start_date)}</span><span tal:condition="api.context.start_time">,
-      ${api.format_time(api.context.start_time)}</span>
+      <span>${api.format_date(api.context.start_date, 'full')}</span><span tal:condition="api.context.start_time">,
+      ${api.format_time(api.context.start_time, 'short')}</span>
       <span tal:condition="api.context.end_time or api.context.end_date" tal:replace="'-'"/>
-      <span tal:condition="api.context.end_date">${api.format_date(api.context.end_date)}<span tal:condition="api.context.end_time" tal:replace="','"/></span>
-      <span tal:condition="api.context.end_time">${api.format_time(api.context.end_time)}</span>
+      <span tal:condition="api.context.end_date">${api.format_date(api.context.end_date, 'full')}<span tal:condition="api.context.end_time" tal:replace="','"/></span>
+      <span tal:condition="api.context.end_time">${api.format_time(api.context.end_time, 'short')}</span>
       &mdash; ${api.context.place}
     </p>
     <p class="description">
