@@ -77,10 +77,19 @@ class AddEventPictureFormView(AddFileFormView):
     item_type = EventPicture.type_info.title
     def add(self, **appstruct):
         buf = appstruct['file']['fp'].read()
+        img = Image.open(StringIO(buf))
+        if img.size[0] > 600 or img.size[1] > 600:
+            img_format = img.format
+            img.thumbnail((600,600), Image.ANTIALIAS)
+            out = StringIO()
+            img.save(out, img_format)
+            out = out.getvalue()
+        else:
+            out = buf
         return EventPicture(
             title=appstruct['title'],
             description=appstruct['description'],
-            data=buf,
+            data=out,
             filename=appstruct['file']['filename'],
             mimetype=appstruct['file']['mimetype'],
             size=len(buf),

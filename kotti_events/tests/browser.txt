@@ -6,7 +6,12 @@ Setup
 
   >>> from kotti import testing, DBSession
   >>> from kotti.resources import Node, Document, File
-
+  >>> import pytest
+  >>> try:
+  ...   import Image
+  ... except ImportError:
+  ...   from PIL import Image
+  
 Get a handle for some useful objects:
 
   >>> settings = {'kotti.configurators': 'kotti_events.kotti_configure' }
@@ -192,3 +197,49 @@ Add an event picture with different ratio
   >>> browser.open(picture_url + '@@icon-view')
   >>> "\x89PNG" in browser.contents
   True
+
+Add an event picture that is too wide
+-------------------------------------
+
+  >>> browser.open(testing.BASE_URL + '/my-events/event-number-one/')
+  >>> browser.getLink("Add").click()
+  >>> browser.getLink("Event picture").click()
+  >>> ctrl("Title").value = "To wide picture"
+  >>> simple_png = '\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x02\xbc\x00\x00\x00\x01\x08\x02\x00\x00\x00\xb3\x13\xea\x96\x00\x00\x00\x01sRGB\x00\xae\xce\x1c\xe9\x00\x00\x00\x1bIDATH\xc7\xed\xc1\x01\x01\x00\x00\x08\x80\xa0\xfa?\xda&t\x00\xd8j\x00\x00>\x07\x929\x02\xff\xbb^uY\x00\x00\x00\x00IEND\xaeB`\x82'
+  >>> import cStringIO
+  >>> ctrl("File").add_file(cStringIO.StringIO(simple_png), 'text/plain', 'simple.png')
+  >>> ctrl("save").click()
+  >>> "Successfully added item" in browser.contents
+  True
+  >>> picture_url = testing.BASE_URL + '/my-events/event-number-one/to-wide-picture/'
+  >>> browser.open(picture_url + '@@inline-view')
+  >>> simple_png in browser.contents
+  False
+  >>> img = Image.open(cStringIO.StringIO(browser.contents))
+  >>> img.size[0]
+  600
+  >>> img.size[1]
+  1
+
+Add an event picture that is too high
+-------------------------------------
+
+  >>> browser.open(testing.BASE_URL + '/my-events/event-number-one/')
+  >>> browser.getLink("Add").click()
+  >>> browser.getLink("Event picture").click()
+  >>> ctrl("Title").value = "To high picture"
+  >>> simple_png = '\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x02\xbc\x08\x02\x00\x00\x00\xa1\xbcB\\\x00\x00\x00\x01sRGB\x00\xae\xce\x1c\xe9\x00\x00\x00\x1eIDATH\xc7\xed\xc3\x01\t\x000\x10\x03\xb1c\xfe=\xf7}\x8c\x04\xd2\xb6W\xa9\xaa\xea\x8f\x0f\x95\x18\x08t\xcc\x85\x92\x15\x00\x00\x00\x00IEND\xaeB`\x82'
+  >>> import cStringIO
+  >>> ctrl("File").add_file(cStringIO.StringIO(simple_png), 'text/plain', 'simple.png')
+  >>> ctrl("save").click()
+  >>> "Successfully added item" in browser.contents
+  True
+  >>> picture_url = testing.BASE_URL + '/my-events/event-number-one/to-high-picture/'
+  >>> browser.open(picture_url + '@@inline-view')
+  >>> simple_png in browser.contents
+  False
+  >>> img = Image.open(cStringIO.StringIO(browser.contents))
+  >>> img.size[0]
+  1
+  >>> img.size[1]
+  600
