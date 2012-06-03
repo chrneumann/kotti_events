@@ -1,5 +1,4 @@
 import datetime
-from pyramid.url import resource_url
 
 from StringIO import StringIO
 try: # pragma: no cover
