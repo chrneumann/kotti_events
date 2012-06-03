@@ -49,6 +49,7 @@ setup(name='kotti_events',
         'Kotti >= 0.6.0b1',
         'Babel',
         'PIL',
+        'colander >= 0.9.8',
       ],
       entry_points="""
       # -*- Entry points: -*-

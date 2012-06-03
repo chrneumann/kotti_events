@@ -76,6 +76,8 @@ Add an upcoming event
   >>> import datetime
   >>> future = datetime.datetime.now().date()
   >>> ctrl("Start date").value = str(future)
+  >>> ctrl("Start time").value = "12:53"
+  >>> ctrl("End date").value = str(future)
   >>> ctrl("save").click()
   >>> "Successfully added item" in browser.contents
   True
