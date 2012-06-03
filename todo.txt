@@ -1,0 +1,5 @@
+Todos
+=====
+
+- Use Image node from Kotti >= 0.7.0
+- Add converter for images
