@@ -21,11 +21,11 @@
     <ul tal:condition="upcoming_events" class="event-list">
       <li tal:repeat="event upcoming_events">
         <span>${api.format_date(event.start_date, 'full')}</span><span tal:condition="event.start_time">,
-	  ${api.format_time(event.start_time, 'short')}</span>
-	<span tal:condition="event.end_time or event.end_date" tal:replace="'-'"/>
+					${api.format_time(event.start_time, 'short')}</span>
+				<span tal:condition="event.end_time or event.end_date" tal:replace="'-'"/>
         <span tal:condition="event.end_date">${api.format_date(event.end_date, 'full')}<span tal:condition="event.end_time" tal:replace="','"/></span>
-	<span tal:condition="event.end_time">${api.format_time(event.end_time, 'short')}</span>
-	<br />
+				<span tal:condition="event.end_time">${api.format_time(event.end_time, 'short')}</span>
+				<br />
         <a href="${api.url(event)}" title="${event.description}">${event.title}</a>
       </li>
     </ul>
@@ -33,12 +33,13 @@
     <h2 tal:condition="past_events" i18n:translate="">Past events</h2>
     <ul tal:condition="past_events" class="event-list">
       <li tal:repeat="event past_events">
-	<div class="event-icon" tal:define="icon event.get_icon()">
-	     <a tal:condition="icon != None" href="${api.url(event)}" title="${event.description}"><img src="${api.url(icon, '@@icon-view')}"/></a>
-	</div>
+				<div class="event-icon" tal:define="icon event.get_icon()">
+					<a tal:condition="icon != None" href="${api.url(event)}" title="${event.description}"><img src="${api.url(icon, '@@icon-view')}"/></a>
+				</div>
         <span>${api.format_date(event.start_date, 'full')}</span>
+				<span tal:condition="event.end_date" tal:replace="'-'"/>
         <span tal:condition="event.end_date">${api.format_date(event.end_date, 'full')}</span>
-	<br />
+				<br />
         <a href="${api.url(event)}" title="${event.description}">${event.title}</a>
       </li>
     </ul>
