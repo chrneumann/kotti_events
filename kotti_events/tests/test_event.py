@@ -4,7 +4,7 @@ from kotti.testing import UnitTestBase
 
 class TestEventPictureMethods(UnitTestBase):
     """
-    Test methods which operato on the event's pictures.
+    Test methods which operate on the event's pictures.
     """
     def setUp(self):
         from kotti_events.resources import Event
