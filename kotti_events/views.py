@@ -4,7 +4,7 @@ from StringIO import StringIO
 try:  # pragma: no cover
     import Image
 except ImportError:  # pragma: no cover
-    from PIL import Image
+    from Pillow import Image
 import colander
 from kotti.views.edit import ContentSchema
 from kotti.views.edit import generic_edit
