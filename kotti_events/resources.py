@@ -11,6 +11,7 @@ from kotti.resources import File
 from pyramid.i18n import TranslationStringFactory
 _ = TranslationStringFactory('kotti_events')
 
+
 class EventFolder(Content):
     __tablename__ = 'event_folders'
     __mapper_args__ = dict(polymorphic_identity='event_folder')
@@ -21,10 +22,11 @@ class EventFolder(Content):
         title=_(u"Event folder"),
         add_view=u'add_eventfolder',
         addable_to=[u'Document'],
-        )
+    )
 
     def __init__(self, **kwargs):
         super(EventFolder, self).__init__(**kwargs)
+
 
 class Event(Content):
     id = Column(Integer, ForeignKey('contents.id'), primary_key=True)
@@ -40,7 +42,7 @@ class Event(Content):
         title=_(u'Event'),
         add_view=u'add_event',
         addable_to=[u'EventFolder'],
-        )
+    )
 
     def get_icon(self):
         """
@@ -55,7 +57,7 @@ class Event(Content):
         supported_mimetypes = ['image/jpeg', 'image/png', 'image/gif']
         for child in self.keys():
             if (self[child].type_info.name == EventPicture.type_info.name
-                and self[child].mimetype in supported_mimetypes):
+                    and self[child].mimetype in supported_mimetypes):
                 yield self[child]
 
     def __init__(self, place=u"", body=u"", start_date=datetime.now(),
@@ -68,6 +70,7 @@ class Event(Content):
         self.end_date = end_date
         self.end_time = end_time
 
+
 class EventPicture(File):
     __tablename__ = 'event_pictures'
     __mapper_args__ = dict(polymorphic_identity='event_picture')
@@ -78,7 +81,7 @@ class EventPicture(File):
         title=_(u'Event picture'),
         add_view=u'add_eventpicture',
         addable_to=[u'Event'],
-        )
+    )
 
     def __init__(self, **kwargs):
         super(EventPicture, self).__init__(in_navigation=False, **kwargs)

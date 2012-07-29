@@ -1,9 +1,9 @@
 import datetime
 
 from StringIO import StringIO
-try: # pragma: no cover
+try:  # pragma: no cover
     import Image
-except ImportError: # pragma: no cover
+except ImportError:  # pragma: no cover
     from PIL import Image
 import colander
 from kotti.views.edit import ContentSchema
@@ -28,9 +28,9 @@ from kotti_events.util import get_upcoming_events
 from kotti_events.util import get_past_events
 
 
-
 class EventFolderSchema(ContentSchema):
     pass
+
 
 class EventSchema(ContentSchema):
     place = colander.SchemaNode(colander.String(),
@@ -40,9 +40,10 @@ class EventSchema(ContentSchema):
         widget=RichTextWidget(theme='advanced', width=790, height=500),
         missing=u"",
         title=_("Body")
-        )
+    )
     start_date = colander.SchemaNode(
-        colander.Date(), title=_("Start date"), default=datetime.datetime.now())
+        colander.Date(), title=_("Start date"),
+        default=datetime.datetime.now())
     start_time = colander.SchemaNode(
         colander.Time(), title=_("Start time"), missing=None)
     end_date = colander.SchemaNode(
@@ -50,36 +51,44 @@ class EventSchema(ContentSchema):
     end_time = colander.SchemaNode(
         colander.Time(), title=_("End time"), missing=None)
 
+
 @ensure_view_selector
 def edit_events(context, request):
     return generic_edit(context, request, EventFolderSchema())
+
 
 def add_events(context, request):
     return generic_add(context, request, EventFolderSchema(), EventFolder,
                        EventFolder.type_info.title)
 
+
 @ensure_view_selector
 def edit_event(context, request):
     return generic_edit(context, request, EventSchema())
 
+
 def add_event(context, request):
-    return generic_add(context, request, EventSchema(), Event, Event.type_info.title)
+    return generic_add(context, request, EventSchema(), Event,
+                       Event.type_info.title)
+
 
 def view_eventfolder(context, request):
     return {
         'api': template_api(context, request),
         'upcoming_events': get_upcoming_events(context),
         'past_events': get_past_events(context),
-        }
+    }
+
 
 class AddEventPictureFormView(AddFileFormView):
     item_type = EventPicture.type_info.title
+
     def add(self, **appstruct):
         buf = appstruct['file']['fp'].read()
         img = Image.open(StringIO(buf))
         if img.size[0] > 600 or img.size[1] > 600:
             img_format = img.format
-            img.thumbnail((600,600), Image.ANTIALIAS)
+            img.thumbnail((600, 600), Image.ANTIALIAS)
             out = StringIO()
             img.save(out, img_format)
             out = out.getvalue()
@@ -92,25 +101,27 @@ class AddEventPictureFormView(AddFileFormView):
             filename=appstruct['file']['filename'],
             mimetype=appstruct['file']['mimetype'],
             size=len(buf),
-            )
+        )
+
 
 class EditEventPictureFormView(EditFileFormView):
     pass
 
-def thumbnail_view(context, request, size=(270,168)):
+
+def thumbnail_view(context, request, size=(270, 168)):
     img = Image.open(StringIO(context.data))
     img_format = img.format
-    wanted_ratio = float(size[0])/size[1]
-    img_ratio = float(img.size[0])/img.size[1]
+    wanted_ratio = float(size[0]) / size[1]
+    img_ratio = float(img.size[0]) / img.size[1]
 
     if wanted_ratio > img_ratio:
         new_height = int(img.size[0] / wanted_ratio)
         y_offset = int((img.size[1] - new_height) / 2.0)
-        img = img.crop((0,y_offset,img.size[0],y_offset + new_height))
+        img = img.crop((0, y_offset, img.size[0], y_offset + new_height))
     elif img_ratio > wanted_ratio:
         new_width = int(img.size[1] * wanted_ratio)
         x_offset = int((img.size[0] - new_width) / 2.0)
-        img = img.crop((x_offset,0,x_offset + new_width,img.size[1]))
+        img = img.crop((x_offset, 0, x_offset + new_width, img.size[1]))
     img.thumbnail(size, Image.ANTIALIAS)
     thumbnail = StringIO()
     img.save(thumbnail, img_format)
@@ -118,13 +129,15 @@ def thumbnail_view(context, request, size=(270,168)):
         headerlist=[
             ('Content-Length', str(len(thumbnail.getvalue()))),
             ('Content-Type', str(context.mimetype)),
-            ],
+        ],
         app_iter=thumbnail.getvalue(),
-        )
+    )
     return res
 
+
 def icon_view(context, request):
-    return thumbnail_view(context, request, (90,56))
+    return thumbnail_view(context, request, (90, 56))
+
 
 def includeme_edit(config):
     config.add_view(
@@ -133,14 +146,14 @@ def includeme_edit(config):
         name='edit',
         permission='edit',
         renderer='kotti:templates/edit/node.pt',
-        )
+    )
 
     config.add_view(
         add_events,
         name=EventFolder.type_info.add_view,
         permission='add',
         renderer='kotti:templates/edit/node.pt',
-        )
+    )
 
     config.add_view(
         edit_event,
@@ -148,21 +161,21 @@ def includeme_edit(config):
         name='edit',
         permission='edit',
         renderer='kotti:templates/edit/node.pt',
-        )
+    )
 
     config.add_view(
         add_event,
         name=Event.type_info.add_view,
         permission='add',
         renderer='kotti:templates/edit/node.pt',
-        )
+    )
 
     config.add_view(
         AddEventPictureFormView,
         name=EventPicture.type_info.add_view,
         permission='add',
         renderer='kotti:templates/edit/node.pt',
-        )
+    )
 
     config.add_view(
         EditEventPictureFormView,
@@ -170,7 +183,8 @@ def includeme_edit(config):
         name='edit',
         permission='edit',
         renderer='kotti:templates/edit/node.pt',
-        )
+    )
+
 
 def includeme_view(config):
     config.add_view(
@@ -178,35 +192,35 @@ def includeme_view(config):
         context=EventPicture,
         name='thumbnail-view',
         permission='view',
-        )
+    )
 
     config.add_view(
         icon_view,
         context=EventPicture,
         name='icon-view',
         permission='view',
-        )
+    )
 
     config.add_view(
         inline_view,
         context=EventPicture,
         name='inline-view',
         permission='view',
-        )
+    )
 
     config.add_view(
         attachment_view,
         context=EventPicture,
         name='attachment-view',
         permission='view',
-        )
+    )
 
     config.add_view(
         context=EventPicture,
         name='view',
         permission='view',
         renderer='templates/eventpicture-view.pt',
-        )
+    )
 
     config.add_view(
         view_eventfolder,
@@ -214,7 +228,7 @@ def includeme_view(config):
         name='view',
         permission='view',
         renderer='templates/eventfolder-view.pt',
-        )
+    )
 
     config.add_view(
         view_node,
@@ -222,9 +236,10 @@ def includeme_view(config):
         name='view',
         permission='view',
         renderer='templates/event-view.pt',
-        )
+    )
 
     config.add_static_view('static-kotti_events', 'kotti_events:static')
+
 
 def includeme(config):
     config.add_translation_dirs('kotti_events:locale/')

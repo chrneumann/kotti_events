@@ -2,6 +2,7 @@ from datetime import datetime
 
 from kotti.testing import UnitTestBase
 
+
 class TestEventPictureMethods(UnitTestBase):
     """
     Test methods which operate on the event's pictures.
@@ -17,13 +18,13 @@ class TestEventPictureMethods(UnitTestBase):
 
         self.emty_event = Event(u"Frankfurt", u"<b>Awesome!</b>",
                                 datetime.now, None, None, None)
-                          
+
     def test_get_icon(self):
         icon = self.event.get_icon()
         assert icon.name == 'foo'
 
         icon = self.emty_event.get_icon()
-        assert icon == None
+        assert icon is None
 
     def test_get_pictures(self):
         pictures = list(self.event.get_pictures())
