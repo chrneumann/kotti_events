@@ -39,28 +39,28 @@ Add an event folder
   >>> browser.getLink("Event folder").click()
   >>> "Add Event folder to <em>Welcome to Kotti</em>" in browser.contents
   True
-  >>> ctrl("Title").value = "My Events!!"
+  >>> ctrl("Title").value = "Appointments!!"
   >>> ctrl("save").click()
   >>> "Successfully added item" in browser.contents
   True
-  >>> browser.url == testing.BASE_URL + '/my-events/'
+  >>> browser.url == testing.BASE_URL + '/appointments/'
   True
 
 Edit an event folder
 --------------------
 
-  >>> "My Events!!" in browser.contents
+  >>> "Appointments!!" in browser.contents
   True
   >>> browser.getLink("Edit").click()
-  >>> "Edit <em>My Events!!</em>" in browser.contents
+  >>> "Edit <em>Appointments!!</em>" in browser.contents
   True
-  >>> ctrl("Title").value = "My Events"
+  >>> ctrl("Title").value = "Appointments"
   >>> ctrl("save").click()
   >>> "Your changes have been saved." in browser.contents
   True
-  >>> browser.url == testing.BASE_URL + '/my-events/'
+  >>> browser.url == testing.BASE_URL + '/appointments/'
   True
-  >>> "My Events" in browser.contents
+  >>> "Appointments" in browser.contents
   True
 
 Add an upcoming event
@@ -68,7 +68,7 @@ Add an upcoming event
 
   >>> browser.getLink("Add").click()
   >>> browser.getLink("Event").click()
-  >>> "Add Event to <em>My Events</em>" in browser.contents
+  >>> "Add Event to <em>Appointments</em>" in browser.contents
   True
   >>> ctrl("Title").value = "Event number one"
   >>> ctrl("Place").value = "Paris"
@@ -81,7 +81,7 @@ Add an upcoming event
   >>> ctrl("save").click()
   >>> "Successfully added item" in browser.contents
   True
-  >>> browser.url == testing.BASE_URL + '/my-events/event-number-one/'
+  >>> browser.url == testing.BASE_URL + '/appointments/event-number-one/'
   True
   >>> str(future.year) in browser.contents
   True
@@ -91,7 +91,7 @@ Add an upcoming event
   True
   >>> "Event number one" in browser.contents
   True
-  >>> browser.getLink("My Events").click()
+  >>> browser.getLink("Appointments").click()
   >>> "Upcoming events" in browser.contents
   True
   >>> "Past events" in browser.contents
@@ -106,7 +106,7 @@ Add a past event
 
   >>> browser.getLink("Add").click()
   >>> browser.getLink("Event").click()
-  >>> "Add Event to <em>My Events</em>" in browser.contents
+  >>> "Add Event to <em>Appointments</em>" in browser.contents
   True
   >>> ctrl("Title").value = "Event number two"
   >>> ctrl("Place").value = "Moscow"
@@ -117,7 +117,7 @@ Add a past event
   True
   >>> "Event number two" in browser.contents
   True
-  >>> browser.getLink("My Events").click()
+  >>> browser.getLink("Appointments").click()
   >>> "Upcoming events" in browser.contents
   True
   >>> "Past events" in browser.contents
@@ -144,7 +144,7 @@ Edit an event folder
 Add an event picture
 --------------------
 
-  >>> browser.getLink("My Events").click()
+  >>> browser.getLink("Appointments").click()
   >>> browser.getLink("Event number one").click()
   >>> browser.getLink("Add").click()
   >>> browser.getLink("Event picture").click()
@@ -157,7 +157,7 @@ Add an event picture
   >>> ctrl("save").click()
   >>> "Successfully added item" in browser.contents
   True
-  >>> picture_url = testing.BASE_URL + '/my-events/event-number-one/a-nice-picture/'
+  >>> picture_url = testing.BASE_URL + '/appointments/event-number-one/a-nice-picture/'
   >>> browser.url == picture_url
   True
   >>> 'a-nice-picture/@@inline-view' in browser.contents
@@ -175,7 +175,7 @@ Add an event picture
 Add an event picture with different ratio
 -----------------------------------------
 
-  >>> browser.open(testing.BASE_URL + '/my-events/event-number-one/')
+  >>> browser.open(testing.BASE_URL + '/appointments/event-number-one/')
   >>> browser.getLink("Add").click()
   >>> browser.getLink("Event picture").click()
   >>> ctrl("Title").value = "Another nice picture"
@@ -185,7 +185,7 @@ Add an event picture with different ratio
   >>> ctrl("save").click()
   >>> "Successfully added item" in browser.contents
   True
-  >>> picture_url = testing.BASE_URL + '/my-events/event-number-one/another-nice-picture/'
+  >>> picture_url = testing.BASE_URL + '/appointments/event-number-one/another-nice-picture/'
   >>> browser.url == picture_url
   True
   >>> 'another-nice-picture/@@inline-view' in browser.contents
@@ -203,7 +203,7 @@ Add an event picture with different ratio
 Add an event picture that is too wide
 -------------------------------------
 
-  >>> browser.open(testing.BASE_URL + '/my-events/event-number-one/')
+  >>> browser.open(testing.BASE_URL + '/appointments/event-number-one/')
   >>> browser.getLink("Add").click()
   >>> browser.getLink("Event picture").click()
   >>> ctrl("Title").value = "To wide picture"
@@ -213,7 +213,7 @@ Add an event picture that is too wide
   >>> ctrl("save").click()
   >>> "Successfully added item" in browser.contents
   True
-  >>> picture_url = testing.BASE_URL + '/my-events/event-number-one/to-wide-picture/'
+  >>> picture_url = testing.BASE_URL + '/appointments/event-number-one/to-wide-picture/'
   >>> browser.open(picture_url + '@@inline-view')
   >>> simple_png in browser.contents
   False
@@ -226,7 +226,7 @@ Add an event picture that is too wide
 Add an event picture that is too high
 -------------------------------------
 
-  >>> browser.open(testing.BASE_URL + '/my-events/event-number-one/')
+  >>> browser.open(testing.BASE_URL + '/appointments/event-number-one/')
   >>> browser.getLink("Add").click()
   >>> browser.getLink("Event picture").click()
   >>> ctrl("Title").value = "To high picture"
@@ -236,7 +236,7 @@ Add an event picture that is too high
   >>> ctrl("save").click()
   >>> "Successfully added item" in browser.contents
   True
-  >>> picture_url = testing.BASE_URL + '/my-events/event-number-one/to-high-picture/'
+  >>> picture_url = testing.BASE_URL + '/appointments/event-number-one/to-high-picture/'
   >>> browser.open(picture_url + '@@inline-view')
   >>> simple_png in browser.contents
   False
