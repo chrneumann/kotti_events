@@ -4,6 +4,10 @@ History
 0.1.0b4 - unreleased
 --------------------
 
+- Updated packaging.
+
+- Depend on Pillow instead of PIL (Kotti depends on the former).
+
 - Fixed tests for Kotti 0.7
 
 0.1.0b3 - 2012-07-12
